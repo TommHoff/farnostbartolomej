@@ -83,6 +83,9 @@
                         {* Conditional Edit button *}
                         {if $user->isAllowed('management')}
                             <a n:href=":Back:Calendar:edit $caldetail->id" class="btn btn-primary shadow me-2">✏️ upravit</a>
+
+                            {* Delete button *}
+                            <a n:href="delete! $caldetail->id" class="btn btn-danger shadow" onclick="return confirm('Opravdu chcete smazat tuto událost?');">🗑️ smazat</a>
                         {/if}
                     </div>
 

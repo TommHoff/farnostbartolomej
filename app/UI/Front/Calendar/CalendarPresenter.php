@@ -8,9 +8,15 @@ use App\UI\Front\BasePresenter;
 use Nette\Application\UI\Form;
 use DateTimeImmutable;
 use Nette\Utils\DateTime;
+use App\Model\Calendar\CalendarFacade;
 
 class CalendarPresenter extends BasePresenter
 {
+    public function __construct(
+        private readonly CalendarFacade $calendarFacade
+    ) {
+        parent::__construct();
+    }
 
     public function renderDefault(): void
     {
@@ -48,14 +54,14 @@ class CalendarPresenter extends BasePresenter
 
     protected function createComponentSignUpForm(): \Nette\Application\UI\Form
     {
-    
+
         $form = new \Nette\Application\UI\Form;
-        
+
         $form->addText('qty', 'počet:')
             ->setDefaultValue(1)
             ->setRequired('kolik Vás dorazí?')
             ->addRule($form::INTEGER, 'tohle není číslo');
-            
+
         $form->addTextArea('vzkaz', 'vzkaz?')
             ->setRequired(FALSE);
 
@@ -64,9 +70,9 @@ class CalendarPresenter extends BasePresenter
 
 
         $form->addSubmit('submit', 'přihlásit se');
-        
+
         $form->onSuccess[] = [$this, 'signUpFormSucceeded'];
-        
+
         return $form;
     }
 
@@ -93,6 +99,33 @@ class CalendarPresenter extends BasePresenter
 
         $this->flashMessage('You have been successfully logged out from the event.', 'success');
         $this->redirect(':Front:Calendar:default'); // Or redirect to the previous page or another relevant page.
+    }
+
+    public function handleDelete(int $id): void
+    {
+        $record = $this->calendarRepository->getEventById($id);
+        if (!$record) {
+            $this->error('Záznam nenalezen.', 404);
+        }
+
+        // Security check: Ensure user is allowed to perform this action
+        if (!$this->getUser()->isAllowed('management')) {
+            $this->flashMessage('Nemáte oprávnění smazat událost.', 'warning');
+            $this->redirect(':Front:Calendar:default');
+            return;
+        }
+
+        // Delete associated files if needed (similar to Back:Calendar presenter)
+        // Note: This would require StorageManager injection if files need to be deleted
+
+        // Delete the event using the CalendarFacade
+        $this->calendarFacade->deleteEvent($id);
+
+        // Notify the user
+        $this->flashMessage('Záznam byl smazán.', 'success');
+
+        // Redirect back to the Front:Calendar:default page
+        $this->redirect(':Front:Calendar:default');
     }
 
 }

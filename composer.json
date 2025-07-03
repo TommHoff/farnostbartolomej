@@ -22,7 +22,8 @@
 		"tracy/tracy": "^2.10",
 		"contributte/oauth2-client": "^0.3.3",
 		"league/oauth2-google": "^4.0",
-		"texy/texy": "^3.2"
+		"texy/texy": "^3.2",
+		"contributte/forms-bootstrap": "^0.8.5"
 	},
 	"require-dev": {
 		"nette/tester": "^2.5",

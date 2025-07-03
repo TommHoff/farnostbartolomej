@@ -4,8 +4,80 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8545a26a0bd16a8f3c9e7ef133240de6",
+    "content-hash": "abd9754750e119e6d982384d8682021d",
     "packages": [
+        {
+            "name": "contributte/forms-bootstrap",
+            "version": "v0.8.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/contributte/forms-bootstrap.git",
+                "reference": "d5ea03ae5e7431b43ee245856d1dfd10e23f2845"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/contributte/forms-bootstrap/zipball/d5ea03ae5e7431b43ee245856d1dfd10e23f2845",
+                "reference": "d5ea03ae5e7431b43ee245856d1dfd10e23f2845",
+                "shasum": ""
+            },
+            "require": {
+                "nette/application": "^3.0",
+                "nette/forms": "3.2.6",
+                "php": ">=8.1"
+            },
+            "require-dev": {
+                "contributte/qa": "^v0.3",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-deprecation-rules": "^1.0",
+                "phpstan/phpstan-nette": "^1.0",
+                "phpstan/phpstan-strict-rules": "^1.0",
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Contributte\\FormsBootstrap\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dalibor Korpar",
+                    "email": "dalibor.korpar@gmail.com"
+                }
+            ],
+            "description": "Nette extension for Bootstrap forms",
+            "homepage": "https://github.com/contributte/forms-bootstrap",
+            "keywords": [
+                "Forms",
+                "bootstrap",
+                "library",
+                "nette"
+            ],
+            "support": {
+                "issues": "https://github.com/contributte/forms-bootstrap/issues",
+                "source": "https://github.com/contributte/forms-bootstrap/tree/v0.8.5"
+            },
+            "funding": [
+                {
+                    "url": "https://contributte.org/partners.html",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/f3l1x",
+                    "type": "github"
+                }
+            ],
+            "time": "2025-04-04T06:56:22+00:00"
+        },
         {
             "name": "contributte/oauth2-client",
             "version": "v0.3.3",
