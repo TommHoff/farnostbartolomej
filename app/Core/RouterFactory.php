@@ -76,7 +76,7 @@ final class RouterFactory
         $exportRouter = new RouteList('Export');
         $exportRouter->addRoute('sitemap.xml', 'Sitemap:sitemap');
         $exportRouter->addRoute('sitemap_index.xml', 'Sitemap:sitemapIndex');
-        $exportRouter->addRoute('uni.json', 'Sitemap:uniData');
+        $exportRouter->addRoute('uni.json', 'Uni:default');
         $router[] = $exportRouter;
 
         $router->addRoute('<presenter>/<action>[/<id>]', 'Front:Home:default');

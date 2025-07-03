@@ -139,37 +139,5 @@ final class SitemapPresenter extends Presenter
         $this->sendResponse(new TextResponse($xml));
     }
 
-    public function renderUniData(): void
-    {
-        $releaseDate = null;
-        $uniRev = null;
 
-        try {
-            $repoData = $this->uniRepository->getUniRev();
-            if ($repoData) {
-                $major = isset($repoData->major) ? (int)$repoData->major : 0;
-                $minor = isset($repoData->minor) ? (int)$repoData->minor : 0;
-                $bugfix = isset($repoData->bugfix) ? (int)$repoData->bugfix : 0;
-                $uniRev = "{$major}.{$minor}.{$bugfix}";
-            }
-            if ($repoData && isset($repoData->release_date)) {
-                $releaseDate = DateTime::from($repoData->release_date);
-            }
-        } catch (\Exception $e) {
-            // handle exception
-        }
-
-        $apiKey = "API_KEY_XyZ789aBcDeF123GhIjKlMnOpQrS456TuVw";
-
-        $exportData = [
-            'api_key' => $apiKey,
-            'project_id' => 3,
-            'release_date' => $releaseDate ? $releaseDate->format(\DateTimeInterface::ISO8601) : null,
-            'uni_rev' => $uniRev,
-        ];
-
-        $json = json_encode($exportData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        $this->getHttpResponse()->setContentType('application/json');
-        $this->sendResponse(new TextResponse($json));
-    }
 }

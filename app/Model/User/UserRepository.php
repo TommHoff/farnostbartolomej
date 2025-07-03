@@ -18,4 +18,11 @@ final class UserRepository
             ->fetchAll();
     }
 
+    public function findActiveMembersForList(): array
+    {
+        return $this->database->table('users')
+            ->where('is_active', 1)
+            ->fetchAll();
+    }
+
 }
