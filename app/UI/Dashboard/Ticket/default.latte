@@ -1,0 +1,99 @@
+{block content}
+
+    <div class="container rounded my-4 p-4 bg-brand">
+        <div class="row d-flex justify-content-between align-items-center mb-3">
+
+            <div class="col-auto">
+                <h2 class="text-dark my-4">
+
+                    <span class="text-warning fw-bold me-2">{$countOpen}</span>
+                    <span class="me-2 fs-3">🎫 </span>
+                    <span class="text-muted">in line</span>
+
+                </h2>
+                <hr>
+                <div class="text-dark">
+                    <span class="me-2 fs-5">🚀</span>
+                    Warp Speed: {$avgOpenTime} per fix!
+                </div>
+            </div>
+            <div class="col-auto d-flex gap-2">
+                <a class="btn btn-outline-warning fw-bold" n:href=":Dashboard:Ticket:newticket"><span class="me-1">🎫</span>New Ticket</a>
+                <a class="btn btn-outline-secondary fw-bold" n:href=":Dashboard:Ticket:archive"><span class="me-1">📦</span>View Archive</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <small class="text-muted fst-italic"><span class="me-1">🛠️</span>... webmaster hard workin' on it 😉</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-4">
+        {foreach $tickets as $request}
+            <div class="card mb-3 bg-light">
+                <div class="card-body">
+                    <div class="row gy-3">
+                        <div class="col-lg-3 col-md-4">
+                            <p class="card-text mb-1">
+                                <span class="me-1">🆔</span><strong>Ticket: {$request->id}</strong>
+                            </p>
+                            <p class="card-text text-muted mb-2">
+                                <span class="me-1">📅</span>{$request->receive_ticket|localDate: date: short, time: short}
+                            </p>
+                            <div class="mb-3">
+                                <a n:href=":Dashboard:Ticket:edit $request->id" class="btn my-1 btn-outline-info btn-sm me-2" title="Edit"><span class="me-1">✏️</span>Edit</a>
+                                {if ($user->isInRole('admin') || $user->isInRole('leader')) && !$request->is_priority && !$request->is_done}
+                                    <a n:href="setPriority! $request->id" class="btn my-1 btn-outline-warning btn-sm me-2" title="Set Priority"><span class="me-1">⭐</span>Prioritize</a>
+                                {/if}
+                                {if $user->isInRole('admin')}
+                                    <a n:href=":Dashboard:Ticket:adminreply $request->id" class="btn my-1 btn-outline-info btn-sm me-2" title="replay"><span class="me-1">✏️</span>replay</a>
+                                    <a n:href="Archived! $request->id" class="btn my-1 btn-outline-secondary btn-sm" title="Archive"><span class="me-1">🗑️</span>Archive</a>
+                                {/if}
+                                <a n:href="deleteTicket! $request->id" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                            <p class="card-text small">
+                                <span class="me-1">👤</span>{$request->ref('users', 'user_Fid')->user_name}<br>
+                                <span class="me-1">✉️</span>{$request->ref('users', 'user_Fid')->email}<br>
+                                <span class="me-1">🧑‍💻</span>User ID: {$request->ref('users', 'user_Fid')->id}
+                            </p>
+                        </div>
+
+                        <div class="col-lg-{$request->photo_path ? '5' : '9'} col-md-{$request->photo_path ? '8' : '8'}">
+                            <p class="card-text mb-2">
+                                <strong>Description:</strong><br>
+                                {$request->description|texy|noescape}
+                            </p>
+                            {if $request->reply}
+                                <hr class="my-2">
+                                <p class="card-text">
+                                    <span class="me-1">💬</span><strong>IT Reply:</strong><br>
+                                    {$request->reply|texy|noescape}
+                                </p>
+                            {/if}
+                        </div>
+
+                        {if $request->photo_path}
+                            <div class="col-lg-4 col-md-12 d-flex flex-column align-items-center align-items-lg-start">
+                                <img src="{$basePath}/documents/{$request->photo_path}" class="img-fluid rounded shadow" style="max-height: 250px; object-fit: contain;" alt="Ticket Image" loading="lazy">
+                            </div>
+                        {/if}
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+
+
+        {if count($tickets) === 0 && !isset($error_message)}
+            <div class="alert alert-info text-dark border-secondary">
+                <span class="me-2 fs-4">🎉</span> There are currently no open tickets.
+            </div>
+        {/if}
+        {if isset($error_message)}
+            <div class="alert alert-danger text-dark border-danger">
+                <span class="me-2 fs-4">⚠️</span> {$error_message}
+            </div>
+        {/if}
+
+    </div>
+{/block}

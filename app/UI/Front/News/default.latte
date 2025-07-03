@@ -1,0 +1,85 @@
+{block content}
+<div class="mt-5">
+    <h1>Aktuality</h1>
+
+    {if $user->isAllowed('management')}
+        <hr>
+        <a n:href=":Back:Post:add " class="btn btn-primary shadow me-2">✏️ přidat</a>
+        <hr>
+    {/if}
+
+
+    <div class="row">
+        {foreach $posts as $post}
+            <div class="col-md-6"> 
+                <div class="shadow my-2">
+                    <div class="row">
+                        {* Post Image Section *}
+                        <div class="col-3 p-1 d-flex align-items-center justify-content-center rounded shadow">
+                            <div style="width: 100%; padding-bottom: 100%; position: relative;">
+                                <img src="
+                                    {if $post->photo}
+                                        {$basePath}/documents/{$post->photo}
+                                    {else}
+                                        {$basePath}/images/katedrala.webp
+                                    {/if}
+                                " class="rounded" loading="lazy" alt="Post Image" style="object-fit: cover; position: absolute; height: 100%; width: 100%;">
+
+                                {if $post->show_bartik == 1}
+                                    <div class="ribbon left position-absolute" style="--c0: #cc333f; --c1: #6d1b22; --f: 1rem;">Bartík</div>
+                                {elseif $post->show_bartik == 2}
+                                    <div class="ribbon left position-absolute" style="--c0: #cc333f; --c1: #6d1b22; --f: 1rem;">Věstník</div>
+                                {/if}
+                            </div>
+                        </div>
+
+                        {* Post Details Section *}
+                        <div class="col-6">
+                            <div class="d-flex flex-column justify-content-center h-100">
+                                <strong><em><a n:href=":Front:News:detail $post->id">
+                                    {if empty($post->title)}{$post->note_poznamka}{else}{$post->title}{/if}
+                                </a></em></strong>
+
+                                <div class="d-none d-sm-block">
+                                    <span><small><em style="color: grey; font-size: 0.9rem;">
+                                        {$post->content|stripTags|truncate:100}
+                                    </em></small></span>
+                                </div>
+                                <span><small><em style="color: grey; font-size: 0.6rem;">
+                                    (publikováno: {$post->published_at|localDate: date: relative-short})
+                                </em></small></span>
+                            </div>
+                        </div>
+
+                        <div class="col-3 d-flex justify-content-center align-items-center m-auto">
+                            <a class="btn btn-warning shadow d-flex align-items-center" n:href=":Front:News:detail $post->id">
+                                <div class="d-none d-md-block">
+                                    <img src="{$basePath}/images/ikonky/news-icon.svg" alt="news-icon" style="width: 1em; height: 1em; display: inline-block;"/>
+                                    <span>&nbsp;přečíst</span>
+                                </div>
+                                <span class="d-block d-md-none">&nbsp;číst</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center mt-5">
+        <nav aria-label="Page navigation">
+            <ul class="pagination">        
+                {if !$paginator->isFirst()}
+                    <li class="page-item"><a class="page-link" n:href="default, 1"><i class="fas fa-angle-double-left"></i>nejnovější</a></li>
+                {/if}
+
+                <li class="page-item disabled"><span class="page-link">stránka {$paginator->getPage()} z {$paginator->getPageCount()}</span></li>
+
+                {if !$paginator->isLast()}
+                    <li class="page-item"><a class="page-link" n:href="default, $paginator->getPage() + 1"><i class="fas fa-angle-double-right"></i>starší</a></li>
+                {/if}
+            </ul>
+        </nav>
+    </div>
+</div>
+{/block}

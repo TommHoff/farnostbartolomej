@@ -1,0 +1,83 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light shadow rounded my-3" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" n:href=":Dashboard:Home:default">
+                🛸
+                <b><span>dashboard</span></b>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto fw-bold">
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Dashboard:Ticket:default">
+                            🎫&nbsp;tickets
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Dashboard:Personal:default">
+                            🫀&nbsp;profil
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Dashboard:Uni:default">
+                            🚀&nbsp;UNI
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Dashboard:Bells:default">
+                            🔔&nbsp;zvony
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ms-auto fw-bold">
+                    {if $user->isLoggedIn()}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                👋&nbsp;účet
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown"  style="background-color: Ivory !important;">
+
+                                <li>
+                                    <a class="dropdown-item" n:href=":Front:Home:default">
+                                        🚀 domů
+                                    </a>
+                                </li>
+                                {if $user->isAllowed('management')}
+                                    <li>
+                                        <a class="dropdown-item" n:href=":Back:Home:default">
+                                            ⚙️&nbsp;back
+                                        </a>
+                                    </li>
+                                {/if}
+                                {if $user->isInRole('admin')}
+                                    <li>
+                                        <a class="dropdown-item" n:href=":Admin:Dashboard:default">
+                                            🛡️&nbsp;admin
+                                        </a>
+                                    </li>
+                                {/if}
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" n:href=":Sign:Auth:out">
+                                        🚪&nbsp;odhlásit
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {else}
+                        <li class="nav-item">
+                            <a class="nav-link" n:href=":Sign:Auth:in">
+                                🔑&nbsp;přihlásit
+                            </a>
+                        </li>
+                    {/if}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

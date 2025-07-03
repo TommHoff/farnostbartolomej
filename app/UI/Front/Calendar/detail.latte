@@ -1,0 +1,125 @@
+{block content}
+
+<div class="container-fluid my-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6">
+            <div class="card shadow-sm my-3 position-relative" style="background-color: #FFFFF0;">
+
+                {if $caldetail->Fid_note == 101}
+                    <div class="ribbon left position-absolute" style="--c0: #f8ca00; --c1: #856c00; color: #000; --f: 1rem; z-index: 1;">
+                        <strong>mše</strong>
+                    </div>
+                {/if}
+
+                <div class="card-body">
+                    {* Row for Start and End date/time columns at the top *}
+                    <div class="row mb-3">
+                        <div class="col-6 text-center">
+                            {* Conditional Start Label *}
+                            <p class="mb-1 small text-muted">⏰ {if $caldetail->date_start->getTimestamp() > time()}Začíná:{else}Začalo:{/if}</p>
+                            <p class="mb-0"><span class="medium-font">{$caldetail->date_start|localDate: date: relative-short}</span></p>
+                            <p class="mb-1 big-font fw-bold">{$caldetail->date_start|date('H:i')}</p>
+                            <p class="mb-0 small text-muted">{$caldetail->date_start|localDate: 'EEEE'}</p>
+                        </div>
+                        <div class="col-6 text-center">
+                            {* Conditional End Label *}
+                            <p class="mb-1 small text-muted">🏁 {if $caldetail->date_end->getTimestamp() > time()}Končí:{else}Skončilo:{/if}</p>
+                            {* Display full end date/time/day, same design as start *}
+                            <p class="mb-0"><span class="medium-font">{$caldetail->date_end|localDate: date: relative-short}</span></p>
+                            <p class="mb-1 big-font fw-bold">{$caldetail->date_end|date('H:i')}</p>
+                            <p class="mb-0 small text-muted">{$caldetail->date_end|localDate: 'EEEE'}</p>
+                        </div>
+                    </div>
+
+                    <hr class="my-3">
+
+                    {* Title/Note - Full width block *}
+                    <div class="mb-3">
+                        <a class="special" n:href=":Front:Calendar:detail $caldetail->id">
+                            <h3 class="card-title text-center mb-0">
+                                {if empty($caldetail->title)}
+                                    {$caldetail->ref('calendar_note', 'Fid_note')->note_poznamka|texy|noescape}
+                                {else}
+                                    {$caldetail->title|texy|noescape}
+                                {/if}
+                            </h3>
+                        </a>
+                    </div>
+
+                    {* Place, Person, Note (col-10) and Icon (col-2) in a row *}
+                    <div class="row align-items-center">
+                        <div class="col-10 small-font text-muted">
+                            <p class="mb-1">
+                                📍
+                                {if $caldetail->Fid_place !== 42}
+                                    <strong>{$caldetail->ref('place', 'Fid_place')->nazev}</strong> - {$caldetail->ref('place', 'Fid_place')->uliceShort|noescape}
+                                {else}
+                                    <strong>{$caldetail->place}</strong>
+                                {/if}
+                            </p>
+
+                            {if !empty($caldetail->note)}
+                                <p class="mb-1">📝 ({$caldetail->note})</p>
+                            {/if}
+
+                            {if !empty($caldetail->person)}
+                                <p class="mb-0">
+                                    🧑‍🏫 <strong><i class="bi bi-person-circle"></i> {$caldetail->person}</strong>
+                                </p>
+                            {/if}
+                        </div>
+                        <div class="col-2 text-end">
+                            <img src="{$basePath}/images/ikonky/{$caldetail->ref('calendar_note', 'Fid_note')->ikonka}.svg" alt="{$caldetail->ref('calendar_note', 'Fid_note')->ikonka}" style="width: 2.5rem; height: 2.5rem;"/>
+                        </div>
+                    </div>
+
+                    <hr class="my-3"> {* Add another separator before buttons *}
+
+                    {* Button Area *}
+                    <div class="mt-4 text-center">
+                        {* Back button *}
+                        <a n:href=":Front:Calendar:default" class="btn btn-warning shadow me-2">📅 zpět</a>
+
+                        {* Conditional Edit button *}
+                        {if $user->isAllowed('management')}
+                            <a n:href=":Back:Calendar:edit $caldetail->id" class="btn btn-primary shadow me-2">✏️ upravit</a>
+                        {/if}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {if $caldetail->photo != NULL}
+        <div class="row justify-content-center my-3">
+            <div class="col-12 col-lg-6">
+                <div class="shadow card" style="background-color: #FFFFF0;">
+                    <img src="{$basePath}/documents/{$caldetail->photo}" class="card-img-top rounded p-2" loading="lazy" alt="Post Image" style="object-fit: contain;">
+                </div>
+            </div>
+        </div>
+    {/if}
+
+    {if $caldetail->content}
+        <div class="row justify-content-center my-3">
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm p-3" style="background-color: #FFFFF0;">
+                    <h4 class="text-muted card-title text-center">✨ Podrobnosti</h4>
+                    <div class="card-text text-muted">{$caldetail->content|texy|noescape}</div>
+                </div>
+            </div>
+        </div>
+    {/if}
+
+    {if $caldetail->web}
+        <div class="row justify-content-center my-3">
+            <div class="col-12 col-lg-6">
+                <div class="card shadow-sm p-3 text-center" style="background-color: #FFFFF0;">
+                    <h4 class="text-muted card-title">🔗 Odkaz</h4>
+                    <a href="{$caldetail->web}" target="_blank" class="btn btn-warning shadow mb-2">Navštívit web</a>
+                </div>
+            </div>
+        </div>
+    {/if}
+</div>

@@ -1,0 +1,30 @@
+{block content}
+<section class="sign-in-section">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="card shadow-lg" style="border-radius: 1rem; background-color: Ivory !important;">
+                    <div class="card-body p-4 p-md-5 text-center">
+
+                        <h2 n:block=title class="fw-bold mb-4 text-dark">
+                            🚀 Připraveni ke startu?
+                        </h2>
+                        <p class="text-secondary mb-4">Zadejte své přihlašovací údaje ke startu!</p>
+
+                        {control signForm}
+                        <hr>
+                        <a n:href=":Sign:Auth:googleLogin" class="btn btn-danger btn-lg shadow w-100 mb-4 fw-bold d-flex align-items-center justify-content-center" style="gap: 0.5rem;">
+                            <i class="bi bi-google text-white"></i> <span class="small text-white">🚀 Přihlášení přes Google</span>
+                        </a>
+
+                        <div class="small">
+                            <p><a n:href=":Sign:Register:new" class="special fw-bold">Připojte se k posádce!</a> 🧑‍🚀</p>
+                            <p><a n:href=":Sign:Password:lost" class="special fw-bold">Obnovit heslo!</a> 🪐</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

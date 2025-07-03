@@ -1,0 +1,18 @@
+{block content}
+    <section>
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center align-items-center">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div class="card p-3 bg-green" style="opacity: 0.9;">
+                        <div class="card-body p-4 text-center fw-bold">
+                            <h2 n:block=title class="text-warning fw-bold">
+                                new password 🔑
+                            </h2>
+                            {control passwordChangeForm token=>$token}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{/block}

@@ -1,0 +1,45 @@
+{block content}
+
+<div class="my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 text-center">
+            <h1 class="mb-3 fw-bold" n:block=title>kalendář nejen událostí</h1>
+
+            {if $user->isAllowed('management')}
+                <hr>
+                <a n:href=":Back:Calendar:add " class="btn btn-primary shadow me-2">✏️ přidat</a>
+                <hr>
+            {/if}
+            <small>
+                <em>...mše svatá, adorace, akce, výlety, setkání, společenství...</em>
+            </small>
+        </div>
+    </div>
+</div>
+
+<div class="my-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            {foreach $events as $value}
+                {ifchanged $value->date_start->format('n')}
+                    <h3 style="color: DimGray;">
+                        <em>
+                            {if $value->date_start->format('Y') == date('Y')}
+                                {if $value->date_start->format('M') != date('M')}
+                                    <hr>
+                                    &nbsp;&nbsp;{$value->date_start|localDate: 'MMMM'}
+                                    <hr>
+                                {/if}
+                            {else}
+                                <hr>
+                                &nbsp;&nbsp;{$value->date_start|localDate: 'MMMM'} - {$value->date_start|localDate: 'Y'}
+                                <hr>
+                            {/if}
+                        </em>
+                    </h3>
+                {/ifchanged}
+                {include '../calendar.latte', value => $value}
+            {/foreach}
+        </div>
+    </div>
+</div>

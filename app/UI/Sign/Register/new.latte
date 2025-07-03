@@ -1,0 +1,49 @@
+{block content}
+<section class="register-section">
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            {* Adjust column width as needed *}
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-lg" style="border-radius: 1rem; backdrop-filter: blur(5px);"> {* Consistent card style *}
+                    <div class="card-body p-4 p-md-5 text-center">
+
+                        {* Kept text-warning which works on dark background *}
+                        <h2 class="fw-bold mb-4 text-warning">
+                            🧑‍🚀 Připojte se k posádce!
+                        </h2>
+                        {* Kept text-white-75 for text color *}
+                        <p class="text-white-75 mb-4 small">Vytvořte si svůj jedinečný profil a začněte svou cestu.</p>
+
+                        {* Google Sign-up/Login Button - Prominent placement *}
+                        {* Kept text-white for button text/icon for contrast on red *}
+                        <a n:href=":Sign:Auth:googleLogin" class="btn btn-danger btn-lg w-100 mb-4 fw-bold d-flex align-items-center justify-content-center" style="gap: 0.5rem;">
+                            <i class="bi bi-google text-white"></i> <span class="small text-white">🚀 Rychlý start s Google</span>
+                        </a>
+
+                        {* Separator Text *}
+                        {* Kept text-white-50 for text color *}
+                        <div class="my-4 text-white-50 small">
+                            ✨ NEBO vytvořte svůj profil ručně ✨
+                        </div>
+
+                        {* The core manual registration form *}
+                        <div class="manual-registration-form text-start"> {* text-start for labels *}
+                            {* Kept text-white-75 for text color *}
+                            <p class="text-white-75 mb-3 small text-center">Vyplňte níže uvedená pole:</p>
+                            {control newAccountForm}
+                        </div>
+
+
+                        {* Link back to Login Page *}
+                        <div class="mt-4 small text-center">
+                            {* Kept text-white-75 for text color, text-warning for link *}
+                            <p class="mb-0 text-white-75">Jste již součástí flotily? <a n:href=":Sign:Auth:in" class="text-warning fw-bold">Přihlaste se zde!</a> 🚀</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{* Removed the custom #css block as Bootstrap classes are sufficient for white text on a dark background *}

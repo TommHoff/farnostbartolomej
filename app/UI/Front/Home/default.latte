@@ -1,0 +1,222 @@
+{block content}
+
+	<style>
+
+		.container.hero {
+			background-color: rgba(0, 0, 0, 0.2);
+			padding: 0 1rem;
+			position: relative;
+			top: 60%;
+			z-index: 1;
+			border-radius: 15px;
+			overflow: hidden;
+		}
+
+		.container.hero::before {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: rgba(0, 0, 0, 0.6);
+			z-index: -1;
+			border-radius: 15px;
+		}
+
+		@media (orientation: portrait) {
+			.container.hero {
+				width: 70%;
+			}
+		}
+
+		@media (orientation: landscape) {
+			.container.hero {
+				width: 55%;
+			}
+		}
+
+		.img-wrapper {
+			border-radius: 50%;
+			background-color: rgba(255, 255, 255, 0.4);
+			display: inline-block;
+			padding: 10px;
+		}
+
+		.img-wrapper img {
+			border-radius: 50%;
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+	</style>
+
+	<main role="main">
+		<section class="hero rounded shadow position-relative overflow-hidden" style="height: 70vh;">
+			<picture>
+				<source srcset="{$basePath}/images/portraitMadonna300x400.webp 300w,
+                            {$basePath}/images/portraitMadonna576x768.webp 576w,
+                            {$basePath}/images/portraitMadonna810x1080.webp 810w"
+						media="(orientation: portrait)"
+						type="image/webp"
+						sizes="100vw">
+
+				<source srcset="{$basePath}/images/landscapeMadonna992x661.webp 992w,
+                            {$basePath}/images/landscapeMadonna1200x800.webp 1200w"
+						media="(orientation: landscape)"
+						type="image/webp"
+						sizes="(min-width: 1200px) 1200px, (min-width: 992px) 992px, 100vw">
+
+				<img src="{$basePath}/images/landscapeMadonna1200x800.webp"
+					 srcset="{$basePath}/images/landscapeMadonna992x661.webp 992w,
+                         {$basePath}/images/landscapeMadonna1200x800.webp 1200w"
+					 sizes="(min-width: 1200px) 1200px, (min-width: 992px) 992px, 100vw"
+					 alt="plzeňská Madonna"
+					 style="object-fit: cover; position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+					 loading="eager">
+			</picture>
+			<div class="container shadow rounded hero d-flex justify-content-center align-items-center position-relative">
+				<div class="row p-3">
+					<div class="col-12 d-block d-md-none">
+						<em>
+							<span style="color: #FFFFFF;">římskokatolická</span>
+							<h1 style="color: #FFFFFF;">farnost u&nbsp;katedrály</h1>
+							<span style="color: #FFFFFF;">sv.&nbsp;Bartoloměje v&nbsp;Plzni</span>
+						</em>
+					</div>
+					<div class="col-8 d-none d-md-block">
+						<em>
+							<span style="color: #FFFFFF;">římskokatolická</span>
+							<h1 style="color: #FFFFFF;">farnost u&nbsp;katedrály</h1>
+							<span style="color: #FFFFFF;">sv.&nbsp;Bartoloměje v&nbsp;Plzni</span>
+						</em>
+					</div>
+					<div class="col-4 d-flex justify-content-center align-items-center d-none d-md-block">
+						<div class="hero-brand">
+							<img class="img-fluid img-wrapper" src="{$basePath}/images/ikonky/znak_xs_100.webp" alt="znak farnosti" loading="lazy">
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section id="dataSection">
+			<div class="my-2">
+				<h2 class="text-center mt-5 mb-4 d-none d-md-block"><em>kalendář &amp; aktuality</em></h2>
+				<div class="row justify-content-center">
+					<div class="col-12 col-md-5">
+						<div class="my-3">
+							<h3 style="text-align: center;">
+								<em>dnešní kalendář</em>
+							</h3>
+							<hr>
+						</div>
+						{foreach $SmallCalendar as $value}
+							{include '../calendar.latte', value => $value}
+						{/foreach}
+						<hr>
+						<div class="d-flex justify-content-center">
+							<a n:href=":Front:Calendar:default" class="btn btn-warning shadow">
+								<strong>
+									<i class="bi bi-calendar"></i>&nbsp;kalendář
+								</strong>
+							</a>
+						</div>
+					</div>
+					<div class="col-12 col-md-5">
+						<div class=" my-3">
+							<h3 style=" text-align: center;">
+								<em>nejnovější články</em>
+							</h3>
+							<hr>
+						</div>
+
+						{include '../news.latte'}
+
+						<hr>
+						<div class="d-flex justify-content-center">
+							<a n:href=":Front:News:default" class="btn btn-primary shadow">
+								<strong>
+									<i class="bi bi-calendar"></i>&nbsp;news
+								</strong>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<div class="container my-5">
+			<hr>
+		</div>
+
+		<section id="aboutSection">
+			<div class="container-fluid my-2">
+				<div class="row justify-content-center align-items-center">
+					<div class="col-12 col-lg-4">
+						<h3 class="text-center my-2">
+							<em>farnost u&nbsp;katedrály <br>sv.&nbsp;Bartoloměje v&nbsp;Plzni</em>
+						</h3>
+						<p>Jsme společenstvím věřících lidí, kteří se schází ve dvou kostelech v centru Plzně katedrále sv.&nbsp;Bartoloměje na náměstí a v kostele Nanebevzetí Panny Marie ve Františkánské ulici. V areálu bývalého františkánského kostela ve Františkánské ulici sídlí také farní úřad. Katedrála je nejen naším farním kostelem, ale i kostelem plzeňského biskupa, který často o velkých svátcích církevního roku předsedá mši&nbsp;sv.</p>
+						<p>U farnosti působí tři pěvecké sbory, které vystupují především při liturgii. Kostel Nanebevzetí Panny Marie slouží i jako „plzeňská zpovědnice“, během týdne se střídají ve zpovědní službě i kněží z jiných farností. Lidé z farnosti se spolu snaží žít i mimo kostel, schází se při několika příležitostech ke společné modlitbě nebo rozjímání bible.</p>
+						<p>Více se o programu farnosti dozvíte v sekci <a n:href=":Front:News:default">„Aktuality“</a>.</p>
+					</div>
+
+					<div class="col-12 col-lg-8">
+						<div class="row justify-content-center">
+
+							<div class="col-6 text-center">
+								<a n:href=":Front:Place:katedrala" class="d-block position-relative box shadow rounded">
+									<picture>
+										<source srcset="{$basePath}/images/mkatedrala.webp" media="(orientation: portrait)">
+										<img src="{$basePath}/images/katedrala.webp" alt="katedrala sv. Bartolomeje" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+									</picture>
+									<div class="ribbon position-absolute" style="--c0: #cc333f; --c1: #6d1b22;">
+										katedrála
+									</div>
+								</a>
+								<a n:href=":Front:Place:katedrala" class="btn btn-danger shadow mt-2">katedrála</a>
+							</div>
+
+							<div class="col-6 text-center">
+								<a n:href=":Front:Place:npm" class="d-block position-relative box shadow rounded">
+									<picture>
+										<source srcset="{$basePath}/images/mNPM.webp" media="(orientation: portrait)">
+										<img src="{$basePath}/images/NPM.webp" alt="kostel Nanebevzeti Panny Marie" class="img-fluid rounded" style="width: 100%; height: 100%; object-fit: cover;">
+									</picture>
+									<div class="ribbon position-absolute" style="--c0: #f8ca00; --c1: #856c00;">
+										NPM
+									</div>
+								</a>
+								<a n:href=":Front:Place:npm" class="btn btn-warning shadow mt-2">kostel NPM</a>
+							</div>
+						</div>
+						<hr>
+						<div class="row mt-3">
+							<div class="col-3 d-none d-sm-block d-flex justify-content-center align-items-center">
+								<img class="img-fluid" src="{$basePath}/images/ikonky/bip.webp" alt="znak biskupstvi" loading="lazy" style="width: 100em; height: auto;">
+							</div>
+							<div class="col-12 col-md-9 p-2">
+								<p style="color: DimGray; font-size: 0.8rem;">
+									<em>
+										Naše farnost patří do Plzeňské diecéze, druhé nejmladší diecéze v ČR,
+										která byla zřízena bulou papeže Jana&nbsp;Pavla&nbsp;II. 31. května 1993.
+										Území diecéze zahrnuje většinu Plzeňského kraje, Karlovarský kraj
+										a několik obcí Ústeckého a Středočeského kraje. V čele stanul jako
+										její první biskup Mons. František Radkovský, který diecézi vedl téměř
+										23&nbsp;let. 30.&nbsp;dubna 2019 zažila diecéze své vůbec první biskupské
+										svěcení a biskupa Františka ve funkci vystřídal papežem Františkem
+										nově jmenovaný biskup Mons. Tomáš Holub.
+									</em>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+	</main>
+
+{/block}

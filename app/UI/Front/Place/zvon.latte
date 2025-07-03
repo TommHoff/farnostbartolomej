@@ -1,0 +1,89 @@
+{block content}
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+
+                {* Check if the bell data is available *}
+                {if isset($bell)}
+                    <div class="card shadow-sm" style="background-color: ivory;">
+
+                        {* Display bell photo if available *}
+                        {if !empty($bell->bell_photo_path)}
+                            <img src="{$basePath}/documents/{$bell->bell_photo_path}"
+                                 class="card-img-top p-2 rounded"
+                                 loading="lazy"
+                                 alt="Fotka zvonu {$bell->bell_name}"
+                                 style="max-height: 400px; object-fit: contain;">
+                            <hr class="my-0"> {* Separator between image and body *}
+                        {else}
+                            {* Optional: Placeholder if no image *}
+                            <div class="card-header text-center text-muted bg-light">
+                                <i class="bi bi-image" style="font-size: 2rem;"></i> Žádná fotka
+                            </div>
+                        {/if}
+
+                        <div class="card-body">
+                            <h4 class="card-title text-center mb-3">
+                                🔔 {$bell->bell_name}
+                            </h4>
+
+                            <ul class="list-group list-group-flush">
+                                {* Display Location *}
+                                {var $place = $bell->ref('place', 'place_Fid')}
+                                {if $place}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: transparent;">
+                                        <span>📍 umístění</span>
+                                        <strong>{$place->nazev}</strong>
+                                    </li>
+                                {/if}
+
+                                {* Display Workshop if available *}
+                                {var $workshop = $bell->ref('bell_workshop', 'workshop_Fid')}
+                                {if $workshop}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: transparent;">
+                                        <span>🏭 zvonař</span>
+                                        <strong>{$workshop->workshop_name}</strong>
+                                    </li>
+                                {/if}
+
+                                {* Display Tone if available *}
+                                {if !empty($bell->bell_tone)}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: transparent;">
+                                        <span>🎶 tón</span>
+                                        <strong>{$bell->bell_tone}</strong>
+                                    </li>
+                                {/if}
+
+                                {* Display Note if available *}
+                                {if !empty($bell->bell_note)}
+                                    <li class="list-group-item" style="background-color: transparent;">
+                                        <h6 class="mb-1">📝 poznámka</h6>
+                                        <p class="mb-0 small">{$bell->bell_note|texy|noescape}</p>
+                                    </li>
+                                {/if}
+                            </ul>
+
+                        </div>
+
+                        <div class="card-footer text-center bg-light">
+                            <a n:href=":Front:Place:katedralazvony" class="btn btn-outline-secondary btn-sm">
+                                <i class="bi bi-arrow-left me-1"></i> Zpět na seznam zvonů
+                            </a>
+                        </div>
+
+                    </div>
+                {else}
+                    <div class="alert alert-warning text-center" role="alert">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i> Informace o tomto zvonu nebyly nalezeny.
+                    </div>
+                    <div class="text-center">
+                        <a n:href=":Front:Place:katedralazvony" class="btn btn-outline-secondary btn-sm">
+                            <i class="bi bi-arrow-left me-1"></i> Zpět na seznam zvonů
+                        </a>
+                    </div>
+                {/if}
+
+            </div>
+        </div>
+    </div>
+{/block}

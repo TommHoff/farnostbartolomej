@@ -1,0 +1,165 @@
+<footer role="contentinfo">
+    <hr>
+    <div class="my-5">
+        <div class="row">
+            <div class="col-sm d-none d-sm-block">
+                <div class="container-fluid rounded d-flex justify-content-center align-items-center my-3">
+                    <h3>dnešní kalendář</h3>
+                </div>
+                {foreach $SmallCalendar as $value} {include 'calendar.latte', value => $value} {/foreach}
+            </div>
+            <div class="col-sm d-none d-sm-block">
+                <div class="container-fluid rounded d-flex justify-content-center align-items-center my-3">
+                    <h3>nejnovější články</h3>
+                </div>
+                <div class="hide_content">
+                    {include 'news.latte'}
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="container-fluid rounded d-flex justify-content-center align-items-center my-3">
+                    <h3>naše farnost</h3>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a href="https://www.facebook.com/profile.php?id=100077756600038" target="_blank" class="mx-2">
+                        <img class="img-fluid round" src="{$basePath}/images/ikonky/facebook.webp" alt="facebook" loading="lazy" width="30" height="30">
+                    </a>
+                    <a href="https://www.instagram.com/farnost.katedrala.plzen?utm_source=qr&igsh=MzB6NmV3YnFlNnBh" target="_blank" class="mx-2">
+                        <img class="img-fluid" src="{$basePath}/images/ikonky/instagram.webp" alt="instagram" loading="lazy" width="30" height="30">
+                    </a>
+                    <a href="https://www.youtube.com/@farnostkatedralaplzen" target="_blank" class="mx-2">
+                        <img class="img-fluid" src="{$basePath}/images/ikonky/youtube.webp" alt="youtube" loading="lazy" width="30" height="30">
+                    </a>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <span><small><em>...sledujte nás i na sociálních sítích...</em></small></span>
+                </div>
+                <hr>
+                <div class="container my-3">
+                    <div style="max-width: 300px;" class="mx-auto">
+                        <div class="d-flex justify-content-start align-items-center my-2">
+                            <img class="img-fluid me-3" src="{$basePath}/images/ikonky/synoda.webp" alt="znak Diecézní synody" loading="lazy" style="width: 3em; height: auto;">
+                            <a href="https://synoda.bip.cz/" target="_blank" class="special">
+                                Diecézní synoda
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center my-2">
+                            <img class="img-fluid me-3" src="{$basePath}/images/ikonky/bip.webp" alt="znak Biskupství plzeňského" loading="lazy" style="width: 3em; height: auto;">
+                            <a href="https://www.bip.cz/" target="_blank" class="special">
+                                Plzeňská diecéze
+                            </a>
+                        </div>
+                        <div class="d-flex justify-content-start align-items-center my-2">
+                            <img class="img-fluid me-3" src="{$basePath}/images/ikonky/ekumena.webp" alt="znak Plzeňské ekumeny" loading="lazy" style="width: 3em; height: auto;">
+                            <a href="https://plzenska-ekumena.cz/" target="_blank" class="special">
+                                Plzeňská ekumena
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion" id="contactAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <i class="bi bi-geo"></i> <strong>adresa</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#contactAccordion">
+                            <div class="accordion-body">
+                                <strong>Římskokatolická farnost Plzeň u katedrály sv. Bartoloměje</strong><br>
+                                Františkánská 11 <br> 301 00 Plzeň <br> IČ: 45330743 <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <i class="bi bi-people-fill"></i> <strong>kontakt</strong>
+                            </button>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#contactAccordion">
+                            <div class="accordion-body">
+                                <div>
+                                    <strong>Ing. Anna Sladká</strong> | pastorační asistentka<br>
+                                    <small>
+                                        <a class="special" href="mailto:sladka@bip.cz">sladka@bip.cz</a><br>
+                                        <a href="tel:+420733741676">+420 733 741 676</a>
+                                    </small>
+                                </div>
+                                <hr class="my-3">
+                                <div>
+                                    <strong>Jana Tenglerová</strong> | synodní delegát<br>
+                                    <small>
+                                        <a class="special" href="mailto:tenglerovaj@email.cz">tenglerovaj@email.cz</a>
+                                    </small>
+                                </div>
+                                <hr class="my-3">
+                                <div>
+                                    <strong>P. Pavel Petrašovský</strong> | farář<br>
+                                    <small>
+                                        <a class="special" href="mailto:petrasovsky@bip.cz">petrasovsky@bip.cz</a><br>
+                                        <a href="tel:+420737814525">+420 737 814 525</a>
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <i class="bi bi-coin"></i> <strong>bankovní účet</strong>
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#contactAccordion">
+                            <div class="accordion-body">
+                                <strong>Číslo účtu: 5284197329/0800</strong> <br> Česká spořitelna, a.s.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="container-fluid my-5">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <div class="mb-2">
+                    <small class="d-block mb-1">
+                        Máte 🤔 nápad nebo našli ✨ chybu? Dejte vědět webmasterovi! 👇
+                    </small>
+                    <a class="btn btn-outline-warning btn-sm" n:href=":Dashboard:Ticket:newticket">
+                        🎟️ <strong>ticket</strong>
+                    </a>
+                </div>
+                <hr>
+                <img class="img-fluid me-2" src="{$basePath}/images/ikonky/znak_sm_150.webp" alt="znak farnosti" loading="lazy" width="30" height="30">
+                <b title="farnost u katedrály sv. Bartolomě" style="font-size: 1.2rem;"><span>farnost u katedrály</span></b>
+                <p>
+                    <em>...v srdci města, spojeni vírou...</em>
+                </p>
+            </div>
+            <div class="col-md-6 text-center mt-3 mt-md-0">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item mx-2">
+                        <a n:href=":Sign:Policy:terms" class="special">podmínky</a>
+                    </li>
+                    <li class="list-inline-item mx-2">
+                        <a n:href=":Sign:Policy:privacy" class="special">soukromí</a>
+                    </li>
+                </ul>
+                <hr>
+
+                <div class="mb-2">
+                    <strong>UNI {$uniRev->major}.{$uniRev->minor}.{$uniRev->bugfix}</strong>
+                </div>
+
+
+                <small class="d-block text-muted">
+                    <em>...fueled by ☕, crafted by <a class="special" href="https://tomek.wtf" target="_blank"><strong>T|O|M|E|K</strong></a></em>
+                </small>
+            </div>
+        </div>
+    </div>
+</footer>

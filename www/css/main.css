@@ -1,0 +1,215 @@
+/* ============================================= */
+/* Base Styles & Theme                           */
+/* ============================================= */
+
+body {
+  background-color: Ivory !important;
+  color: black !important;
+}
+
+/* Dark Mode Override */
+/* Note: These styles result in a light background and dark text, */
+/* which might not be the intended dark theme. Adjust as needed. */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: white; /* Example: Should likely be a dark color like #222 */
+    color: black;            /* Example: Should likely be a light color like #eee */
+  }
+}
+
+/* ============================================= */
+/* Layout Components                             */
+/* ============================================= */
+
+/* Hero Section Container */
+.container.hero {
+  /* Overlapping background effect */
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 0 1rem;
+  position: relative;
+  top: 60%; /* Position relative to viewport height? Consider parent context */
+  z-index: 1; /* Ensure it's above the pseudo-element */
+  border-radius: 15px; /* Add rounded corners */
+  overflow: hidden; /* Ensure contents respect the rounding */
+}
+
+/* Darker background overlay for hero using pseudo-element */
+.container.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6); /* Darker overlay */
+  z-index: -1; /* Position behind the content */
+  border-radius: 15px; /* Match the parent border-radius */
+}
+
+/* Responsive width adjustments for hero container */
+@media (orientation: portrait) {
+  .container.hero {
+    width: 70%;
+  }
+}
+
+@media (orientation: landscape) {
+  .container.hero {
+    width: 55%;
+  }
+}
+
+/* ============================================= */
+/* Specific Components                           */
+/* ============================================= */
+
+/* Image Wrapper (likely within Hero) */
+.img-wrapper {
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4); /* Semi-transparent background */
+  display: inline-block; /* Allows padding and respects text flow */
+  padding: 10px;
+}
+
+
+.img-wrapper img {
+  border-radius: 50%; /* Match wrapper's rounding */
+  width: 100%;        /* Responsive width within wrapper */
+  height: auto;       /* Maintain aspect ratio */
+  display: block;     /* Remove extra space below image */
+}
+
+.accordion-body {
+  background-color: Ivory; /* Set background to Ivory */
+  color: black; /* Ensure text color remains readable (optional adjustment) */
+}
+
+/* Special Link Style with Animated Underline */
+a.special {
+  color: inherit;          /* Use parent text color */
+  text-decoration: none;   /* Remove default underline */
+  font-style: italic;
+  font-weight: bold;
+
+  /* Gradient setup for hover effect */
+  background-image:
+    /* Initial visible underline (color 1) */
+          linear-gradient(to right, rgba(100, 200, 200, 1), rgba(100, 200, 200, 1)),
+            /* Hover underline (gradient color 2) - initially hidden */
+          linear-gradient(to right, rgba(255, 0, 0, 1), rgba(255, 0, 180, 1), rgba(0, 100, 200, 1));
+  background-size: 100% 3px, 0 3px; /* Width & height: (visible, hidden) */
+  background-position: 100% 100%, 0 100%; /* Position: (visible, hidden) */
+  background-repeat: no-repeat;
+  transition: background-size 400ms ease-in-out; /* Animate the size change */
+}
+
+a.special:hover {
+  background-size: 0 3px, 100% 3px; /* Swap visibility: (hidden, visible) */
+}
+
+/* Box Element */
+.box {
+  display: inline-block;
+  width: 75%;
+  aspect-ratio: 1 / 1; /* Square aspect ratio */
+  margin: 2rem;
+  background: #ccc; /* Placeholder background */
+  position: relative; /* Needed for absolute positioning of children (like .ribbon) */
+  font-size: 1.1rem;
+  font-weight: bold;
+  font-family: sans-serif;
+}
+
+/* Ribbon Element (complex style, often used with .box) */
+.ribbon {
+  /* Custom properties for configurability */
+  --f: 0.8rem;   /* Fold size */
+  --c0: #45ada8; /* Main ribbon color */
+  --c1: #255d5a; /* Fold shadow/accent color */
+  --sl: 100%, #0000 25%, var(--c0) 0%; /* Slice definition for conic gradient */
+  --ps: 0/ 51% 100% padding-box no-repeat; /* Positioning shorthand for background */
+  --end: 0;      /* 0 for left ribbon, 1 for right ribbon */
+  --sgn: calc(2 * var(--end) - 1); /* Sign factor based on --end (-1 for left, 1 for right) */
+
+  position: absolute;
+  top: 0;
+  /* Calculate left based on --end (0% for left, 100% for right) */
+  left: calc(var(--end) * 100%);
+  border-bottom: var(--f) solid transparent; /* Create space for the fold */
+  padding: .05em 1.5em; /* Ribbon text padding */
+  width: max-content; /* Fit the text content */
+  color: #fff; /* Text color */
+
+  /* Positioning and Rotation */
+  transform-origin: calc((1 - var(--end)) * 100%) 100%; /* Set origin for rotation (bottom-left or bottom-right) */
+  transform:
+    /* Translate to position correctly, accounting for rotation */
+          translate(calc(var(--sgn) * (1 - cos(45deg)) * 100% + var(--end) * -100%), -100%)
+            /* Rotate the ribbon */
+          rotate(calc(var(--sgn) * 45deg));
+
+  /* Background construction using multiple gradients for shape and fold effect */
+  background:
+    /* Left/Right edge shape */
+          conic-gradient(from -45deg at 0 var(--sl)) 0 var(--ps),
+          conic-gradient(from -45deg at 100% var(--sl)) 100% var(--ps),
+            /* Bottom fold effect */
+          conic-gradient(from -45deg at var(--f), var(--c1) 25%, #0000 0%)
+          left calc(-1 * var(--f)) bottom calc(-1 * var(--f)) / 100% calc(2 * var(--f))
+          repeat-x border-box;
+}
+
+/* Modifier for right-aligned ribbon */
+.ribbon.right {
+  --end: 1; /* Set custom property for calculations */
+}
+
+
+/* ============================================= */
+/* Utility Classes                               */
+/* ============================================= */
+
+/* Font Styling Utilities */
+.big-font {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.medium-font {
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.news-font {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: DimGray; /* Changed from font-color */
+}
+
+.small-font {
+  font-size: 0.7rem;
+  font-style: italic;
+  color: DimGray; /* Changed from font-color */
+}
+
+.mini-font {
+  font-size: 0.5rem;
+  font-style: italic;
+  text-align: center;
+  color: DimGray; /* Changed from font-color */
+}
+
+/* Icon Size Utilities */
+.icon-size {
+  width: 1em;         /* Size relative to parent font size */
+  height: 1em;        /* Size relative to parent font size */
+  display: inline-block; /* Align with text, allow sizing */
+  vertical-align: middle; /* Optional: Adjust vertical alignment */
+}
+
+.large-icon-size {
+  width: 2em;
+  height: 2em;
+  display: inline-block;
+  vertical-align: middle; /* Optional: Adjust vertical alignment */
+}

@@ -1,0 +1,52 @@
+{block content}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6 shadow rounded">
+        <div class="row align-items-center">
+            <div class="col-md-8 text-center">
+                <h1>{$post->title}</h1>
+                <small class="text-secondary"><em>publikováno: {$post->published_at|date:'d.m.Y'}</em></small>
+            </div>
+            <div class="col-md-4 text-center">
+                <img src="
+                    {if $post->photo}
+                        {$basePath}/documents/{$post->photo}
+                    {else}
+                        {$basePath}/images/katedrala.webp
+                    {/if}
+                " class="img-fluid rounded" loading="lazy" alt="news image">
+            </div>
+        </div>
+
+        <hr>
+
+    <div class="d-none d-md-block">
+        {* Embedded Content Image *}
+        {if $post->photo}
+            <img src="{$basePath}/documents/{$post->photo}" class="img-fluid mb-3" alt="{$post->title}">
+        {/if}
+    </div>
+
+        <div class="my-3">
+            <p>{$post->content|texy|noescape}</p>
+        </div>
+
+        <div class="my-3 justify-content-center">
+            <hr>
+            <a n:href="News:default" class="btn btn-warning"><i class="bi bi-caret-left-square-fill"></i> zpět</a>
+            {if $post->web}
+                <a class="btn btn-warning" href="{$post->web}" target="_blank"><i class="bi bi-link-45deg"></i> odkaz pro další info</a>
+            {/if}
+            {if $post->photo}
+                <a class="btn btn-warning" href="{$basePath}/documents/{$post->photo}" download="obrazek"><i class="bi bi-file-image"></i> obrázek</a>
+            {/if}
+
+            {if $post->filePdf}
+                <a class="btn btn-warning" href="{$basePath}/documents/{$post->filePdf}" download="priloha"><i class="bi bi-file-earmark-text"></i> příloha</a>
+            {/if}
+        </div>
+    </div>
+</div>
+
+{/block}
+

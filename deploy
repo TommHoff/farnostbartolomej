@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Simple deployment script for myweb project
+# Usage: ./deploy [config_file] [additional_args]
+
+# Default config file
+CONFIG_FILE="deployment.ini"
+
+# If a first argument is provided, use it as the config file
+if [ $# -ge 1 ]; then
+    CONFIG_FILE="$1"
+fi
+
+# Collect any additional arguments after the first one
+ADDITIONAL_ARGS=""
+if [ $# -ge 2 ]; then
+    shift
+    ADDITIONAL_ARGS="$@"
+fi
+
+# Execute the deployment command
+echo "Executing: php deployment.phar $CONFIG_FILE $ADDITIONAL_ARGS"
+
+# Check if --test flag is provided
+if [[ "$ADDITIONAL_ARGS" == *"--test"* ]]; then
+    echo "Running in test mode (dry run)"
+fi
+
+# Execute the actual deployment command
+php deployment.phar "$CONFIG_FILE" $ADDITIONAL_ARGS

@@ -1,0 +1,112 @@
+{block content}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Mission Aborted! 🚀</title>
+        <style>
+            body {
+                background-color: #0B3D91; /* NASA Blue */
+                color: #E0E0E0; /* Light grey for text */
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; /* System fonts */
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                min-height: 100vh;
+                margin: 0;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .container {
+                background-color: rgba(0, 0, 0, 0.4); /* Slightly more opaque background */
+                padding: 40px; /* Increased padding */
+                border-radius: 10px;
+                max-width: 600px;
+                width: 100%;
+                box-shadow: 0 0 30px rgba(0, 0, 0, 0.6); /* Stronger shadow */
+            }
+
+            h1 {
+                color: #FFD700; /* Gold color */
+                font-size: 2.8em; /* Slightly larger heading */
+                margin-bottom: 15px;
+                text-shadow: 2px 2px 5px rgba(0,0,0,0.3); /* Text shadow */
+            }
+
+            h2 {
+                color: #C0C0C0; /* Silver color */
+                font-size: 1.6em;
+                margin-bottom: 25px; /* More space below subheading */
+            }
+
+            p {
+                font-size: 1.1em;
+                line-height: 1.7; /* Slightly increased line height */
+                margin-bottom: 20px; /* More space below paragraphs */
+            }
+
+            .emoji {
+                font-size: 2.5em; /* Larger emojis */
+                margin: 25px 0; /* More space around emojis */
+                display: block;
+            }
+
+            .button-link {
+                display: inline-block; /* Make links behave like buttons */
+                padding: 12px 25px; /* Padding for button size */
+                margin: 10px; /* Space between buttons */
+                background-color: #007bff; /* Primary blue color for button */
+                color: white; /* White text on button */
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                transition: background-color 0.3s ease; /* Smooth hover transition */
+                border: none; /* Remove default link border */
+                cursor: pointer; /* Indicate clickable */
+            }
+
+            .button-link.secondary {
+                background-color: #6c757d; /* Secondary grey color */
+            }
+
+            .button-link:hover {
+                background-color: #0056b3; /* Darker shade on hover */
+                text-decoration: none; /* Ensure no underline on hover */
+            }
+            .button-link.secondary:hover {
+                background-color: #545b62; /* Darker grey on hover */
+            }
+
+
+            .small-text {
+                font-size: 0.9em;
+                color: #B0B0B0;
+                margin-top: 30px; /* Space above small text */
+            }
+        </style>
+    </head>
+    <body>
+    <div class="container">
+        <h1>Houston, máme problém! 💥</h1>
+        <h2>Signál ztracen během mise.</h2>
+
+        <span class="emoji">🛰️📡💔</span>
+
+        <p>Vypadá to, že vaše kosmická loď narazila na neočekávanou anomálii v časoprostoru (čili, něco se pokazilo).</p>
+        <p>Nebojte, naše řídící středisko už vyslalo tým údržby (vývojáře), aby to prozkoumali.</p>
+
+        <span class="emoji">🧑‍🚀✨🔧</span>
+
+        <p>Zkuste se vrátit na bezpečnou oběžnou dráhu:</p>
+
+        <div>
+            <a href="https://farnostbartolomej.cz/ticket" class="button-link secondary">🚀 info pro webmastra</a>
+            <a href="https://farnostbartolomej.cz" class="button-link">🏠 Přistát na domovské planetě</a>
+        </div>
+
+    </div>
+    </body>
+    </html>
+{/block}

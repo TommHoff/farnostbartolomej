@@ -1,0 +1,82 @@
+{block content}
+
+<div>
+  <h1 n:block=title>přidat opakovanou událost</h1>
+  <small class="text-muted">pod formulářem je seznam všech opakovaných událostí</small>
+</div>
+<br>
+<hr>
+
+{control repeatedEventsForm}
+
+<br><hr><br>
+
+<h2>opakované události</h2>
+
+{* desktop version *}
+<div class="table-responsive d-none d-md-block mb-5">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">událost</th>
+        <th scope="col">poznamka</th>
+        <th scope="col">od (h)</th>
+        <th scope="col">do (h)</th>
+        <th scope="col">začátek</th>
+        <th scope="col">konec</th>
+        <th scope="col">akce</th>
+      </tr>
+    </thead>
+    <tbody>{foreach $events as $value}
+      <tr>
+        <td>
+          {if $value->title == ""}
+            {$value->note_poznamka}
+          {else}
+            {$value->title}
+          {/if}
+        </td>
+        <td>{$value->nazev} - {$value->note|truncate:42}</td>
+        <td>{$value->date_start|date:"H:i"}</td>
+        <td>{$value->date_end|date:"H:i"}</td>
+        <td>{$value->date_start|date:"d.m.Y"}</td>
+        <td>{$value->date_end|date:"d.m.Y"}</td>  
+        <td>{$value->skupina}
+          {if isset($value->skupina)}
+              <a n:href="deleteGroup! $value->skupina">
+                  <span class="bi bi-trash-fill text-warning"></span>
+              </a>
+          {/if}
+        </td>
+      </tr>
+    {/foreach} </tbody>
+  </table>
+</div>
+
+{* mobile version *}
+
+<div class="d-block d-md-none">
+    <div class="accordion" id="mobileAccordion">
+        {foreach $events as $key => $value}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{$key}">
+                <button class="accordion-button {if !$iterator->first}collapsed{/if}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{$key}" aria-expanded="{if $iterator->first}true{else}false{/if}" aria-controls="collapse{$key}">
+                    {if $value->title == ""}
+            {$value->note_poznamka}
+          {else}
+            {$value->title}
+          {/if}
+            (od: {$value->date_start|date:"H:i"} do: {$value->date_end|date:"H:i"})
+                </button>
+            </h2>
+            <div id="collapse{$key}" class="accordion-collapse collapse {if $iterator->first}show{/if}" aria-labelledby="heading{$key}" data-bs-parent="#mobileAccordion">
+                <div class="accordion-body">
+                    <strong>KDe:</strong>{$value->nazev}<br>
+                    <strong>Note:</strong>{$value->note}<br>
+                   <a n:href="deleteGroup! $value->skupina"><span class="bi bi-trash-fill text-warning"></span></a>
+                </div>
+            </div>
+        </div>
+        {/foreach}
+    </div>
+</div>

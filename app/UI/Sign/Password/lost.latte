@@ -1,0 +1,45 @@
+{block content}
+<section class="password-reset-section"> {* Optional: Use the same background as login *}
+    <div class="container py-5">
+        <div class="row d-flex justify-content-center align-items-center">
+            {* Slightly wider column might be suitable here *}
+            <div class="col-12 col-md-6 col-lg-5">
+                <div class="card shadow-lg" style="border-radius: 1rem;  backdrop-filter: blur(5px);"> {* Consistent card style *}
+                    <div class="card-body p-4 p-md-5 text-center">
+
+                        {* Kept text-warning which works on dark background *}
+                        <h2 class="fw-bold mb-3 text-warning">
+                            🛰️ Záchranný maják
+                        </h2>
+                        {* Kept text-white-75 for text color *}
+                        <div class="mt-4 small">
+                            <i class="bi bi-info-circle"></i> Ztratili jste svůj přístupový kód, vesmírný kadete? Žádný problém!
+                        </div>
+
+
+                        {* The core password reset form *}
+                        <div class="text-start mb-4"> {* text-start aligns labels correctly if they are part of the form *}
+                            {control passwordResetForm}
+                        </div>
+
+                        {* Info Text *}
+                        {* Kept text-white-50 for text color *}
+                        <div class="mt-4 small">
+                            <i class="bi bi-info-circle"></i> Po odeslání zkontrolujte svou schránku (a možná i složku se spamem!) pro zprávu z Řídícího centra.
+                        </div>
+
+                        {* Links to Sign In / Register *}
+                        <div class="mt-4 small">
+                            {* Kept text-white-75 for text color, text-warning for link *}
+                            <p class="mb-1 text-white-75">Vzpomněli jste si na kód? <a n:href=":Sign:Auth:in" class="text-warning fw-bold">Návrat do hangáru!</a> 🚀</p>
+                            {* Kept text-white-75 for text color, text-warning for link *}
+                            <p class="mb-0 text-white-75">Potřebujete novou misi? <a n:href=":Sign:Register:new" class="text-warning fw-bold">Registrujte se zde!</a> ✨</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{* Removed the custom #css block as Bootstrap classes are sufficient for white text on a dark background *}

@@ -1,0 +1,55 @@
+{define my-post-styles}
+<style n:syntax="off">
+    .footer-post-image-wrapper {
+        height: 5rem;
+        width: 5rem; /* Consider if col-3 already implies width */
+        overflow: hidden;
+    }
+    .footer-post-bg-image {
+        background-position: center;
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+    }
+    .footer-post-ribbon {
+        --c0: #cc333f;
+        --c1: #6d1b22;
+        top: 0;
+        left: 0;
+    }
+</style>
+{/define}
+{include my-post-styles}
+
+{foreach $FooterPosts as $value}
+<div class="container-fluid shadow mt-2" style="position: relative;">
+    <div class="row">
+        <div class="col-3 d-flex justify-content-center align-items-center p-0 footer-post-image-wrapper">
+            <div class="bg-image rounded footer-post-bg-image" style="
+                background-image: url({if $value->photo}{$basePath}/documents/{$value->photo}{elseif $value->imageDB}data:image/webp;base64,{base64_encode($value->imageDB)}{else}{$basePath}/images/katedrala.webp{/if});
+                ">
+            </div>
+            {if $value->show_bartik == 1 || $value->show_bartik == 2}
+                <div class="ribbon left position-absolute footer-post-ribbon">
+                    {if $value->show_bartik == 1}Bartík{elseif $value->show_bartik == 2}Věstník{/if}
+                </div>
+            {/if}
+        </div>
+
+        <div class="col-9 d-flex flex-column justify-content-center py-2 px-3">
+            <div class="medium-font mb-1">
+                <a class="special" n:href=":Front:News:detail $value->id">
+                    {if $value->title}
+                        {$value->title|truncate:35, '...'}
+                    {else}
+                        {$value->note_poznamka|truncate:35, '...'}
+                    {/if}
+                </a>
+            </div>
+            <p class="small-font mb-2">
+                {$value->content|stripTags|truncate:90,'...'}
+            </p>
+        </div>
+    </div>
+</div>
+{/foreach}

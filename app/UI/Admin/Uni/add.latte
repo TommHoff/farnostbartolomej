@@ -1,0 +1,25 @@
+{block content}
+{* Wrap in a container for better spacing/structure *}
+<div class="container">
+    <section>
+        {* Center the column within the row *}
+        <div class="row justify-content-center">
+            {* Adjust column width as needed, e.g., col-lg-8 or col-md-8 *}
+            <div class="col-12 col-md-8 col-lg-6">
+                {* Add rounded corners and potentially more padding (p-4) *}
+                <div class="my-5 p-4 bg-brand text-white rounded shadow-sm" style="opacity: 0.9;">
+                    {* Heading is centered *}
+                    <h2 class="text-center mb-3">add UNI release</h2>
+                    {* Center the version text block *}
+                    <p class="text-center mb-3">
+                        <strong>UNI {$uniRev->major}.{$uniRev->minor}.{$uniRev->bugfix}</strong>
+                    </p>
+                    <hr class="mb-4">
+                    {* Render the form - labels should remain left-aligned by default with Bootstrap renderers *}
+                    {control webForm}
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{/block}

@@ -1,0 +1,153 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light shadow rounded my-3" role="navigation">
+        <div class="container-fluid">
+            <a class="navbar-brand" n:href=":Front:Home:default">
+                <img class="img-fluid me-2" src="{$basePath}/images/ikonky/znak_sm_150.webp" alt="znak farnosti" loading="lazy" width="30" height="30">
+                <b class="d-lg-none" title="farnost u katedrály sv. Bartolomě" style="font-size: 1.2rem;"><span>farnost u katedrály</span></b>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse text-center" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto fw-bold">
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Front:Calendar:Bohosluzby">
+                            🙏&nbsp;bohoslužby
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="newsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            🗞️&nbsp;news
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="newsDropdown"  style="background-color: Ivory !important;">
+                            <li>
+                                <a class="dropdown-item" n:href=":Front:News:default">
+                                    📰&nbsp;aktuality
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" n:href=":Front:News:bartik">
+                                    📝&nbsp;Bartík
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" n:href=":Front:News:vestnik">
+                                    📜&nbsp;Věstník
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Front:Calendar:default">
+                            📅&nbsp;kalendář
+                        </a>
+                    </li>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="mistaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            🗞️&nbsp;mista
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="mistaDropdown" style="background-color: Ivory !important;">
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:katedrala">
+                                    💒&nbsp;katedrála
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:katedralavez">
+                                    💒&nbsp;věž
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:katedralazvony">
+                                    🔔 katedrální zvony
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:npm">
+                                    ⛪&nbsp;NPM
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:npmzvony">
+                                    🔔kostelní zvony
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:fara">
+                                    ⛪&nbsp;fara
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center justify-content-center justify-content-lg-start" n:href=":Front:Place:faraknihovna">
+                                    📚&nbsp;knihovna
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://www.duchovnihudba.cz/" target="_blank" rel="noopener noreferrer">
+                            🎶&nbsp;liturgická hudba
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" n:href=":Front:Ministrans:default">
+                            🏷️&nbsp;pro ministranty
+                        </a>
+                    </li>
+
+                </ul>
+
+                <ul class="navbar-nav ms-auto fw-bold">
+                    {if $user->isLoggedIn()}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                👋&nbsp;účet
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown"  style="background-color: Ivory !important;">
+                                {if $user->isAllowed('dashboard')}
+                                    <li>
+                                        <a class="dropdown-item" n:href=":Dashboard:Home:default">
+                                            🚀 dashboard
+                                        </a>
+                                    </li>
+                                {/if}
+                                {if $user->isAllowed('management')}
+                                    <li>
+                                        <a class="dropdown-item" n:href=":Back:Home:default">
+                                            ⚙️&nbsp;back
+                                        </a>
+                                    </li>
+                                {/if}
+                                {if $user->isInRole('admin')}
+                                    <li>
+                                        <a class="dropdown-item" n:href=":Admin:Dashboard:default">
+                                            🛡️&nbsp;admin
+                                        </a>
+                                    </li>
+                                {/if}
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" n:href=":Sign:Auth:out">
+                                        🚪&nbsp;odhlásit
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    {else}
+                        <li class="nav-item">
+                            <a class="nav-link" n:href=":Sign:Auth:in">
+                                🔑&nbsp;přihlásit
+                            </a>
+                        </li>
+                    {/if}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

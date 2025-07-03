@@ -1,0 +1,83 @@
+{block content}
+  <div>
+    <h1 n:block="title">Administrace kalendáře</h1>
+  </div>
+  <br>
+  <div>
+    <a n:href="Calendar:add" class="btn btn-primary">přidat do kalendáře</a>
+  </div>
+  <br>
+
+  {if count($hiddenEvents) > 0}
+    <h3>Skryté události ({count($hiddenEvents)})</h3>
+    <div class="row mb-4">
+      {foreach $hiddenEvents as $value}
+        <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h6 class="card-title mb-1">
+                {$value->title ?? $value->ref('calendar_note', 'Fid_note')?->note_poznamka ?? 'Neznámý název'}
+              </h6>
+              <p class="card-text text-muted small mb-2">
+                {$value->date_start|localDate: 'd.m.'} - {$value->date_end|localDate: 'd.m. Y'} ({$value->date_start|localDate: 'E'})
+              </p>
+              <div class="mt-auto">
+                <a n:href="setVisible! $value->id" class="btn btn-success btn-sm me-1" title="Zviditelnit"><i class="bi bi-eye-fill"></i> Zviditelnit</a>
+                <a n:href="delete! $value->id" class="btn btn-danger btn-sm" title="Smazat" onclick="return confirm('Opravdu chcete smazat tuto událost?');"><i class="bi bi-trash-fill"></i> Smazat</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {/foreach}
+    </div>
+    <hr>
+  {/if}
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>notace</th>
+        <th>poznámka</th>
+        <th>event range</th>
+        <th>akce</th>
+      </tr>
+      </thead>
+      <tbody>
+      {foreach $events as $value}
+        <tr>
+          <td>
+            <a n:href=":Back:Calendar:edit $value->id">
+              {$value->title ?? $value->ref('calendar_note', 'Fid_note')?->note_poznamka ?? 'Neznámý název'}
+            </a>
+          </td>
+          <td>
+            {$value->ref('place', 'Fid_place')?->nazev ?? 'Neznámé místo'}
+            <em>
+              {if $value->note} - <span><em>{$value->note}</em></span>{/if}
+              {if $value->person} - <span><em>{$value->person}</em></span>{/if}
+              {if $value->title && $value->ref('calendar_note', 'Fid_note')?->note_poznamka} - {$value->ref('calendar_note', 'Fid_note')->note_poznamka}{/if}
+            </em>
+          </td>
+          <td>
+            <b>{$value->date_start|localDate: 'E'}</b>
+            <em>{$value->date_start|date:'d.m. H:i'} - {$value->date_end|date:'d.m. H:i'}</em>
+          </td>
+          <td>
+            <a n:href=":Back:Calendar:edit $value->id" class="mx-1" title="Upravit"><span class="bi bi-pencil-fill text-primary"></span></a>
+            <a n:href="delete! $value->id"
+                    class="text-danger mx-1"
+                    title="Smazat"
+                    onclick="return confirm('Opravdu chcete smazat tuto událost?');">
+              <span class="bi bi-trash-fill"></span>
+            </a>
+            {if $value->is_visible === 0}
+              <i class="bi bi-eye-slash-fill text-danger mx-1" title="Skryto"></i>
+            {/if}
+          </td>
+        </tr>
+      {/foreach}
+      </tbody>
+    </table>
+  </div>
+{/block}

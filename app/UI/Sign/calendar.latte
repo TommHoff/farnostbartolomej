@@ -1,0 +1,58 @@
+{block content}
+    <div class="shadow my-3 position-relative">
+
+        {if $value->Fid_note == 101}
+            <div class="ribbon left position-absolute" style="--c0: #f8ca00; --c1: #856c00; color: #000; --f: 1rem">
+                <strong>mše</strong>
+            </div>
+        {/if}
+
+        <div class="row g-0 py-2">
+            <div class="col-3 d-flex justify-content-center align-items-center">
+                <div class="text-center">
+                    {if $value->date_start->getTimestamp() > time()}
+                        <span class="medium-font d-block">{$value->date_start|localDate: date: relative-short}</span>
+                        <span class="big-font d-block">{$value->date_start|date('H:i')}</span>
+                        <span class="small-font d-block">{$value->date_start|localDate: 'EEEE'}</span>
+                    {else}
+                        <span class="medium-font d-block">končí:</span>
+                        <span class="big-font d-block">{$value->date_end|date('H:i')}</span>
+                        <span class="small-font d-block">{$value->date_end|localDate: date: relative-short}</span>
+                    {/if}
+                </div>
+            </div>
+
+            <div class="col-6 d-flex flex-column justify-content-center">
+                <div>
+                    <a class="special" n:href=":Front:Calendar:detail $value->id">
+                        {if empty($value->title)}
+                            {$value->ref('calendar_note', 'Fid_note')->note_poznamka}
+                        {else}
+                            {$value->title}
+                        {/if}
+                    </a>
+                </div>
+                <div class="small-font mt-1 text-muted">
+                    {if $value->Fid_place}
+                        <strong>{$value->ref('place', 'Fid_place')->nazev}</strong> - {$value->ref('place', 'Fid_place')->uliceShort|noescape}
+                    {else}
+                        <strong>{$value->place}</strong>
+                    {/if}
+                    {if !empty($value->note)}({$value->note}){/if}<br>
+                    {if !empty($value->person)}
+                        <strong>
+                            <i class="bi bi-person-circle"></i>
+                            {$value->person}
+                        </strong>
+                    {/if}
+                </div>
+            </div>
+
+            <div class="col-3 d-flex justify-content-center align-items-center p-2">
+                {if $value->Fid_note}
+                    <img src="{$basePath}/images/ikonky/{$value->ref('calendar_note', 'Fid_note')->ikonka}.svg" alt="{$value->ref('calendar_note', 'Fid_note')->ikonka}" style="width: 2.5rem; height: 2.5rem;"/>
+                {/if}
+            </div>
+        </div>
+    </div>
+{/block}

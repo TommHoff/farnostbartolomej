@@ -1,0 +1,63 @@
+{block content}
+
+<div class="container mt-5">
+    <h1 class="special">Věstník plzeňských farností</h1>
+    <hr>
+
+    <div class="row">
+        {foreach $posts as $value}
+            <div class="col-md-6"> 
+                <div class="container-fluid shadow my-2">
+                    <div class="row">
+                        {* Post Image Section *}
+                        <div class="col-3 p-1 d-flex align-items-center justify-content-center rounded shadow">
+                            <div style="width: 100%; padding-bottom: 100%; position: relative;">
+                                {if empty($value->imageDB)}
+                                    <img class="rounded" src="{$basePath}/images/katedrala.webp" loading="lazy" alt="katedrála" style="object-fit: cover; position: absolute; height: 100%; width: 100%;">
+                                {else}
+                                    {php $smallPhotoData = base64_encode($value->imageDB)}
+                                    <img src="data:image/webp;base64,{$smallPhotoData}" class="rounded" loading="lazy" alt="Post Image" style="object-fit: cover; position: absolute; height: 100%; width: 100%;">
+                                {/if}
+                                <div class="ribbon left position-absolute" style="--c0: #cc333f; --c1: #6d1b22; --f: 1rem;">Věstník</div>
+                            </div>
+                        </div>
+
+                        {* Post Details Section *}
+                        <div class="col-6">
+                            <div class="d-flex flex-column justify-content-center h-100">
+                                <div>
+                                    <strong><em>
+                                    <a class="special" n:href=":Front:News:detail $value->id">
+                                        {if empty($value->title)}{$value->note_poznamka}{else}{$value->title}{/if}
+                                    </a></em></strong>
+                                </div>
+
+                                <div class="hide_this"> {* Not visible in footer *}
+                                    <span><small><em style="color: grey; font-size: 0.6rem;">
+                                        {$value->content|stripTags|truncate:100}
+                                    </em></small></span>
+                                </div>
+
+                                <div>
+                                    <span><small><em style="color: grey; font-size: 0.6rem;">
+                                        (publikováno: {$value->published_at|localDate: date: relative-short})
+                                    </em></small></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3 d-flex justify-content-center align-items-center m-auto">
+                            <a class="btn btn-warning shadow d-flex align-items-center" n:href=":Front:News:detail $value->id">
+                                <img src="{$basePath}/images/ikonky/news-icon.svg"alt="news-icon" style="width: 1em; height: 1em; display: inline-block;"/>
+                {* For portrait *}
+                <span class="d-block d-md-none">&nbsp;číst</span>
+                {* For landscape *}
+                <span class="d-none d-md-block">&nbsp;přečíst</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {/foreach}
+    </div>
+</div>

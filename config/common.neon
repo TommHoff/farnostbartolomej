@@ -1,0 +1,37 @@
+# see https://doc.nette.org/en/configuring
+
+parameters:
+
+
+application:
+	errorPresenter:
+		4xx: Error:Error4xx
+		5xx: Error:Error5xx
+	mapping: App\UI\*\**Presenter
+
+
+database:
+	dsn: 'sqlite::memory:'
+	user:
+	password:
+
+
+latte:
+	strictTypes: yes
+	strictParsing: yes
+	extensions:
+		- App\UI\Accessory\LatteExtension
+
+
+assets:
+	mapping:
+		default:
+			path: assets
+			# type: vite  # Uncomment to activate Vite for asset building
+
+
+di:
+	lazy: true
+	export:
+		parameters: no
+		tags: no

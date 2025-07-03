@@ -1,0 +1,30 @@
+{block content}
+
+    <section class="d-flex justify-content-center align-items-center py-5">
+        <article class="text-center" style="max-width: 480px; width: 100%;">
+            <header class="mb-4">
+                <h1 class="mb-2">Ministranti</h1>
+                <p class="lead mb-2">info nejen pro ministranty farnosti (katedrála/kostel)</p>
+                <hr>
+                <span class="text-muted d-block">...dva kostely, jedna farnost</span>
+            </header>
+        </article>
+    </section>
+
+    {if $events}
+        <section class="pb-5">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-5">
+                        <div class="d-flex flex-column gap-3">
+                            {foreach $events as $value}
+                                {include '../calendar.latte', value => $value}
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {/if}
+
+{/block}

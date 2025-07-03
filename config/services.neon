@@ -1,0 +1,71 @@
+services:
+	- App\Core\RouterFactory::createRouter
+
+	authenticator:
+		factory: App\Core\Authenticator
+
+	authorizator:
+		class: Nette\Security\Permission
+		setup:
+
+		# Define roles with inheritance
+		- addRole('guest')
+		- addRole('member', 'guest')   # member inherits guest permissions
+		- addRole('bellringer', 'guest')   # member inherits guest permissions
+		- addRole('social', 'member')  # social inherits member (and thus guest) permissions
+		- addRole('pater', 'social')   # pater inherits social (member, guest) permissions
+		- addRole('admin', 'pater')    # admin inherits pater (social, member, guest) permissions
+
+
+		# Define resources
+		- addResource('management') # Admin and pater only
+		- addResource('social_media')   # some members
+		- addResource('dashboard')   # every user
+		- addResource('bells')   # every user
+
+		# Permissions allocation:
+
+		# member permissions for handling gaming content
+		- allow('member', ['dashboard'])
+
+		# bellringer permissions for handling gaming content
+		- allow('bellringer', ['dashboard'])
+		- allow('bellringer', ['bells'])
+
+		# Patron permissions for handling pub content
+		- allow('pater', ['management'])
+		- allow('pater', ['social_media'])
+		- allow('pater', ['dashboard'])
+		- allow('pater', ['bells'])
+
+		# Admin permissions (complete control)
+		- allow('admin', Nette\Security\Permission::ALL, Nette\Security\Permission::ALL)
+
+	texy:
+		class: Texy\Texy
+
+session:
+	expiration: 1 week
+	autoStart: smart
+
+search:
+	-	in: %appDir%
+		classes:
+			- *Facade
+			- *Factory
+			- *Form
+			- *Repository
+			- *Service
+			- *Manager
+
+extensions:
+	google: Contributte\OAuth2Client\DI\GoogleAuthExtension
+
+google:
+	clientId: '28746926695-m2ioncdo02hmt61iste08rcainlu4hkg.apps.googleusercontent.com'
+	clientSecret: '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'
+	# Optional: Add redirectUri if needed, otherwise it's often auto-detected
+	# redirectUri: 'https://yourdomain.com/sign/google/callback' # Example absolute URL
+	options:
+		# hd: 'yourdomain.com' # Example: Restrict login to a specific G Suite domain
+		# prompt: 'consent'    # Example: Force consent screen every time

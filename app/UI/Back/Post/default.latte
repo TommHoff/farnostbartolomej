@@ -1,0 +1,69 @@
+{block content}
+    <div class="my-5">
+        <h1 class="my-5" n:block=title>Backistrace nástěnky</h1>
+        <a n:href=":Back:Post:add" class="btn btn-outline-warning btn-sm mb-3">
+            <i class="bi bi-plus-lg"></i> přidat
+        </a>
+        <hr>
+        <div class="table-responsive">
+            <table class="table table-striped d-none d-md-table">
+                <thead>
+                <tr>
+                    <th scope="col">Titulek</th>
+                    <th scope="col">Info</th>
+                    <th scope="col" class="text-end">Akce</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $posts as $value}
+                    <tr>
+                        <td class="d-none d-md-table-cell">
+                            <a n:href=":Back:Post:edit $value->id" class="text-decoration-none">{$value->title|truncate:42}</a>
+                        </td>
+                        <td class="d-none d-md-table-cell">
+                            publikováno: {$value->published_at|date:'Y-m-d'}
+                        </td>
+                        <td class="text-end d-none d-md-table-cell">
+                            <a n:href=":Back:Post:edit $value->id" class="btn btn-sm btn-outline-warning me-2">
+                                <i class="bi bi-pencil-fill"></i> Upravit
+                            </a>
+                            <a n:href="delete! $value->id" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash-fill"></i> Smazat
+                            </a>
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+            <div class="d-md-none">
+                {foreach $posts as $value}
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a n:href=":Back:Post:edit $value->id" class="text-decoration-none text-primary">{$value->title|truncate:42}</a>
+                            </h5>
+                            <p class="card-text text-muted small">publikováno: {$value->published_at|date:'Y-m-d'}</p>
+                            <div class="d-flex justify-content-start mt-2">
+                                <a n:href=":Back:Post:edit $value->id" class="btn btn-sm btn-outline-warning me-2">
+                                    <i class="bi bi-pencil-fill"></i> Upravit
+                                </a>
+                                <a n:href="delete! $value->id" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash-fill"></i> Smazat
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {/foreach}
+            </div>
+            <div class="pagination">
+                {if $page > 1}
+                    <a n:href="default, 1">First</a>&nbsp;|&nbsp;<a n:href="default, $page - 1">Previous</a>&nbsp;|&nbsp;
+                {/if}
+                    Page {$page} of {$lastPage}
+            {if $page < $lastPage}
+                    &nbsp;|&nbsp;<a n:href="default, $page + 1">Next</a>&nbsp;|&nbsp;<a n:href="default, $lastPage">Last</a>
+                {/if}
+            </div>
+        </div>
+    </div>
+{/block}

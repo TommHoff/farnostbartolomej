@@ -1,0 +1,46 @@
+{block content}
+<h1 class="my-5" n:block=title>Administrace uživatelů</h1>
+<hr>
+{* visible on desktop *}
+<div class="table-responsive d-none d-md-block">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">jméno</th>
+        <th scope="col">email</th>
+        <th scope="col">telefon</th>
+        <th scope="col">roles</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody> {foreach $members as $value} <tr>
+        <td>
+          <strong>{$value->user_name}</strong>
+          <span class="d-md-none">
+            
+            <br>{$value->email} <br>{$value->phone} <br>{$value->roles}
+          </span>
+        </td>
+        <td>{$value->email}</td>
+        <td>{$value->phone}</td>
+        <td>{if $value->roles === 'admin'}admin{else}farník{/if}</td>
+       
+      </tr> {/foreach} </tbody>
+  </table>
+</div>
+
+{* visible on mobile *}
+<div class="accordion accordion-flush d-md-none" id="accordionFlushExample"> {foreach $members as $value} <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse{$value->id}" aria-expanded="false" aria-controls="flush-collapse{$value->id}"><strong>{$value->user_name}</strong> </button>
+    </h2>
+    <div id="flush-collapse{$value->id}" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+      <div class="accordion-body">
+        <strong>email:</strong> {$value->email} <br>
+        <strong>telefon:</strong> {$value->phone} <br>
+        <strong>roles:</strong> {if $value->roles === 'admin'}admin{else}farník{/if} <br>
+        
+
+      </div>
+    </div>
+  </div> {/foreach} </div>

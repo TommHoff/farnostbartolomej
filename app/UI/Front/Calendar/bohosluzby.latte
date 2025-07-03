@@ -1,0 +1,30 @@
+{block content}
+<style>
+    @media (min-width: 992px) {
+        .my-custom-container {
+            max-width: 50%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+</style>
+
+<section>
+    <div class="row mt-5">
+        <div class="col-12 col-lg-8 my-custom-container">
+            <h1 class="text-center">Bohoslužby</h1>
+            <p class="text-center">plánované bohoslužby, adorace, zpovědní služby,... na příštích <strong>8 dní</strong></p>
+        </div>
+    </div>
+</section>
+
+<section class="my-5">
+    <div class="my-custom-container">
+    {foreach $Bohosluzby as $value}
+        {include '../calendar.latte', value => $value}
+      {/foreach}
+</div>
+</section>
+
+
+{/block}

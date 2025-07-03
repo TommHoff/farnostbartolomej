@@ -1,0 +1,81 @@
+{block content}
+    <div class="shadow my-3 position-relative">
+
+        {if $value->Fid_note == 101}
+            <div class="ribbon left position-absolute" style="--c0: #f8ca00; --c1: #856c00; color: #000; --f: 1rem"><strong>mše</strong></div>
+        {/if}
+
+        <div class="row">
+            {* Calendar Date Section - Simplified Display *}
+            <div class="col-3 d-flex justify-content-center align-items-center p-1">
+                <div class="text-center">
+                    {* Display day of week for the start date *}
+                    <b>{$value->date_start|localDate: 'E'}</b><br>
+
+                    {* Always display Start Date and Time *}
+                    <span class="small-font">Od:</span><br>
+                    <span class="medium-font">{$value->date_start|localDate: 'd.m. Y'}</span><br>
+                    <span class="big-font">{$value->date_start|date('H:i')}</span>
+
+                    {* Display End Date and Time only if it's a multi-day event *}
+                    {* Check if the dates are different days *}
+                    {if $value->date_start->format('Y-m-d') !== $value->date_end->format('Y-m-d')}
+                        <hr>
+                        <span class="small-font">Do:</span><br>
+                        <span class="medium-font">{$value->date_end|localDate: 'd.m. Y'}</span><br>
+                        <span class="big-font">{$value->date_end|date('H:i')}</span>
+                        {* Optionally, if it's a single day event but ends on a different time later that day *}
+                    {elseif $value->date_start->format('H:i') !== $value->date_end->format('H:i')}
+                        {* If you want to show the end time for same-day events that have a duration *}
+                        <hr>
+                        <span class="small-font">Do:</span><br>
+                        <span class="big-font">{$value->date_end|date('H:i')}</span>
+                    {/if}
+                </div>
+            </div>
+
+            {* ... other code ... *}
+
+                {* Calendar Details Section *}
+                <div class="col-6 d-flex flex-column justify-content-center p-1">
+                <span class="medium-font">
+                    <a n:href=":Front:Calendar:detail $value->id">
+                        {if empty($value->title)}
+                            {* Use ternary operator for default value *}
+                            {var $notePoznamka = $value->ref('calendar_note', 'Fid_note')?->note_poznamka}
+                            {($notePoznamka ? $notePoznamka|texy|noescape : 'Neznámý název')}
+                        {else}
+                            {$value->title|texy|noescape}
+                        {/if}
+                    </a>
+                </span>
+                <span class="small-font">
+                {if $value->Fid_place}
+                    {* Use null coalescing for place name and street, applying default if needed *}
+                    <strong>{$value->ref('place', 'Fid_place')?->nazev ?? 'Neznámé místo'}</strong> - {$value->ref('place', 'Fid_place')?->uliceShort|noescape ?? ''}<br>
+                {else}
+                    {if !empty($value->place)}<strong>{$value->place}<br></strong>{/if}
+                {/if}
+                    {if !empty($value->note)}({$value->note})<br>{/if}
+                    {if !empty($value->person)}
+                        <strong>
+                        <i class="bi bi-person-circle"></i>
+                        {$value->person}
+                    </strong>
+                    {/if}
+            </span>
+            </div>
+
+            {* Calendar Detail Link Section *}
+            <div class="col-3 d-flex justify-content-center align-items-center">
+                <a class="btn btn shadow btn-sm d-flex align-items-center" n:href=":Front:Calendar:detail $value->id">
+                    {* Assign relation to variable to safely access properties *}
+                    {var $calendarNote = $value->ref('calendar_note', 'Fid_note')}
+                    {* Use default icon if relation or 'ikonka' is null/missing *}
+                    <img src="{$basePath}/images/ikonky/{$calendarNote?->ikonka ?? 'default'}.svg" alt="ikonka" style="width: 1rem; height: 1rem;"/>
+                    <span>&nbsp;info</span>
+                </a>
+            </div>
+        </div>
+    </div>
+{/block}

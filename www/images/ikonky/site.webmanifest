@@ -1,0 +1,42 @@
+{
+    "name": "Farnost u katedrály sv. Bartoloměje",
+    "short_name": "Farnost u katedrály",
+    "description": "This is a progressive web app for Farnost u katedrály sv. Bartoloměje.",
+    "lang": "cs",
+    "dir": "ltr",
+    "icons": [
+        {
+            "src": "/images/ikonky/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/images/ikonky/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "start_url": "/",
+    "scope": "/",
+    "theme_color": "#053d87",
+    "background_color": "#053d87",
+    "display": "standalone",
+    "shortcuts": [
+        {
+            "name": "Open Calendar",
+            "short_name": "Calendar",
+            "description": "Open the calendar page",
+            "url": "/calendar",
+            "icons": [{ "src": "/images/ikonky/android-chrome-192x192.png", "sizes": "192x192" }]
+        },
+        {
+            "name": "Read Latest News",
+            "short_name": "News",
+            "description": "Open the news page",
+            "url": "/news",
+            "icons": [{ "src": "/images/ikonky/android-chrome-192x192.png", "sizes": "192x192" }]
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+<footer class="container bg-green py-2">
+    {* Use align-items-center for vertical alignment and justify-content-between for horizontal distribution *}
+    <div class="row text-center text-md-start align-items-center justify-content-between">
+
+        {* Column 1: Nette Link (Takes roughly half width on medium+) *}
+        <div class="col-12 col-md-6 mb-2 mb-md-0">
+            <small>
+                <em>...created with ☕ on
+                    <a class="special" href="https://nette.org/en/" target="_blank" rel="noopener noreferrer">Nette&nbsp;Framework</a>
+                </em>
+            </small>
+        </div>
+
+        {* Column 2: Version and Ticket Button (Takes roughly half width on medium+) *}
+        {* text-md-end aligns content to the right on medium+ screens *}
+        {* d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end handles alignment within the column *}
+        <div class="col-12 col-md-6 d-flex flex-column flex-md-row align-items-center justify-content-center justify-content-md-end">
+            {* Add some margin between items, e.g., me-md-3 (margin end on medium+) *}
+            <strong class="me-md-3 mb-2 mb-md-0">UNI {$uniRev->major}.{$uniRev->minor}.{$uniRev->bugfix}</strong>
+            <a class="btn btn-outline-warning btn-sm" n:href=":Dashboard:Ticket:newticket">
+                <strong><i class="bi bi-bell"></i> ticket</strong>
+            </a>
+        </div>
+
+    </div>
+</footer>

@@ -1,0 +1,82 @@
+{block content}
+    <div class="container py-4">
+       <h1 n:block=title class="visually-hidden">Mé Osobní Údaje</h1>
+
+       <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+          <div class="col-12 col-md-5">
+
+             <div class="card shadow" style="background-color: ivory;">
+                <div class="card-body p-4">
+
+                   <div class="mb-4 text-center">
+                      <span style="font-size: 4rem;">👤</span>
+                   </div>
+
+                   <h5 class="card-title mb-3 text-center fw-bold">📄 Detaily mého účtu</h5>
+
+                   <hr class="my-4">
+
+                   {if isset($userData)}
+                      <div class="data-list">
+                         <div class="data-item">
+                             <span class="data-label">
+                                 <span class="me-2">🧑</span>
+                             </span>
+                            <span class="data-value">
+                                 <strong>{$userData->user_name}</strong>
+                             </span>
+                         </div>
+
+                         <div class="data-item">
+                             <span class="data-label">
+                                 <span class="me-2">📧</span>
+                             </span>
+                            <span class="data-value">
+                                 {$userData->email}
+                             </span>
+                         </div>
+
+                         {if isset($userData->phone) && !empty($userData->phone)}
+                            <div class="data-item">
+                             <span class="data-label">
+                                 <span class="me-2">📞</span>
+                             </span>
+                               <span class="data-value">
+                                 {$userData->phone}
+                             </span>
+                            </div>
+                         {/if}
+                      </div>
+
+                      {* Optional Edit Button *}
+                      {*
+                                  <div class="text-center mb-4">
+                                      <a n:href=":Dashboard:Personal:edit" class="btn btn-sm btn-outline-warning">✏️ Upravit profil</a>
+                                  </div>
+                                  *}
+
+                   {else}
+                      <div class="alert alert-warning text-dark text-center d-flex align-items-center justify-content-center" role="alert">
+                         ⚠️ Nepodařilo se načíst uživatelská data.
+                      </div>
+                   {/if}
+
+                   <div class="text-center border-top pt-4 mt-4">
+                      <a n:href=":Dashboard:Home:default" class="btn btn-sm btn-outline-secondary me-2 mb-2">
+                         🛸 dashboard
+                      </a>
+                      <a n:href=":Sign:Policy:privacy" class="btn btn-sm btn-outline-secondary me-2 mb-2">
+                         🔒 soukromí
+                      </a>
+                      <a n:href=":Sign:Policy:terms" class="btn btn-sm btn-outline-secondary me-2 mb-2">
+                         📜 Podmínky používání
+                      </a>
+                   </div>
+
+                </div>
+             </div>
+
+          </div>
+       </div>
+    </div>
+{/block}
